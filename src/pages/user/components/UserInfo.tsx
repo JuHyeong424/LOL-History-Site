@@ -1,4 +1,5 @@
 import type { UserData } from '@/types/user.ts';
+import { PROFILE_ICON_URL } from '@/api/url.ts';
 
 interface UserInfoProps {
   userData: UserData | undefined;
@@ -18,6 +19,7 @@ export default function UserInfo({ userData, userIsLoading, userIsError }: UserI
         <>
           <p>userData.puuid: {userData.puuid}</p>
           <p>userData.profileIconId: {userData.profileIconId}</p>
+          <img src={PROFILE_ICON_URL(userData.profileIconId)} alt="소환사 프로필 아이콘" />
           <p>userData.revisionDate: {userData.revisionDate}</p>
           <p>userData.summonerLevel: {userData.summonerLevel}</p>
         </>

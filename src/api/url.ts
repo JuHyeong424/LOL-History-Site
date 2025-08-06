@@ -5,3 +5,6 @@ export const PUIID_URL = (userName: string) =>
 
 export const SUMMONER_URL = (puuid: string) =>
   `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${LOLAPI}`;
+
+export const PROFILE_ICON_URL = (profileiconId: number) =>
+  `https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${profileiconId}.png`;
