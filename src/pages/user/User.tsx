@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useUserPuuid from '@/hooks/fetch/useUserPuuid.ts';
 import Search from '@/pages/user/components/Search.tsx';
+import UserInfo from '@/pages/user/components/UserInfo.tsx';
 
 export default function User() {
   const [userName, setUserName] = useState<string>('');
@@ -14,6 +15,7 @@ export default function User() {
   return (
     <>
       <Search setUserName={setUserName} onClickHandle={onClickHandle} />
+      {data && <UserInfo puuid={data.puuid} />}
       {isError && <p>해당 사용자를 찾을 수 없습니다.</p>}
       {data && (
         <>
