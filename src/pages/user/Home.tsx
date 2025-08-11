@@ -5,8 +5,9 @@ import UserInfo from '@/pages/user/components/UserInfo.tsx';
 import useUserInfo from '@/hooks/fetch/useUserInfo.ts';
 import UserGameInfo from '@/pages/user/components/UserGameInfo.tsx';
 import useUserGameInfo from '@/hooks/fetch/useUserGameInfo.ts';
+import useMatchId from '@/hooks/fetch/useMatchId.ts';
 
-export default function User() {
+export default function Home() {
   const [userName, setUserName] = useState<string>('');
 
   const {
@@ -28,9 +29,16 @@ export default function User() {
     isError: userGameIsError,
   } = useUserGameInfo({ puuid: puuidData?.puuid ?? '', enabled: !!puuidData?.puuid });
 
-  console.log(puuidData);
+  const {
+    data: matchId,
+    isLoading: matchIdIsLoading,
+    isError: matchIdIsError,
+  } = useMatchId({ puuid: puuidData?.puuid ?? '', enabled: !!puuidData?.puuid });
 
-  if (puuidIsLoading) return <span>...Loading</span>;
+  console.log(puuidData);
+  console.log('matchId: ', matchId);
+
+  if (puuidIsLoading || matchIdIsLoading) return <span>...Loading</span>;
 
   return (
     <>
@@ -41,7 +49,7 @@ export default function User() {
         userGameIsloading={userGameIsLoading}
         userGameIsError={userGameIsError}
       />
-      {puuidIsError && <p>해당 사용자를 찾을 수 없습니다.</p>}
+      {(puuidIsError || matchIdIsError) && <p>해당 사용자를 찾을 수 없습니다.</p>}
       {puuidData && (
         <>
           <p>puuidData.puuid: {puuidData.puuid}</p>
@@ -49,6 +57,7 @@ export default function User() {
           <p>puuidData.tagLine: {puuidData.tagLine}</p>
         </>
       )}
+      {matchId && matchId.map((item) => <p key={item}>{item}</p>)}
     </>
   );
 }
