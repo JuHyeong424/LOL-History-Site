@@ -46,7 +46,7 @@ export default function Home() {
       <UserInfo userData={userData} userIsLoading={userIsLoading} userIsError={userIsError} />
       <UserGameInfo
         userGameData={userGameData}
-        userGameIsloading={userGameIsLoading}
+        userGameIsLoading={userGameIsLoading}
         userGameIsError={userGameIsError}
       />
       {(puuidIsError || matchIdIsError) && <p>해당 사용자를 찾을 수 없습니다.</p>}
