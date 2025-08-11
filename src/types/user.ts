@@ -10,3 +10,23 @@ export interface UserData {
   revisionDate: number;
   summonerLevel: number;
 }
+
+export interface userGameData {
+  leagueId: string;
+  queueType: string;
+  tier: string;
+  rank: string;
+  puuid: string;
+  leaguePoints: number;
+  wins: number;
+  losses: number;
+  veteran: boolean;
+  inactive: boolean;
+  freshBlood: boolean;
+  hotStreak: boolean;
+}
+
+export interface userInfoProps {
+  puuid: string;
+  enabled: boolean;
+}

@@ -8,3 +8,6 @@ export const SUMMONER_URL = (puuid: string) =>
 
 export const PROFILE_ICON_URL = (profileiconId: number) =>
   `https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon${profileiconId}.png`;
+
+export const USER_GAME_INFO_URL = (puuid: string) =>
+  `https://kr.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}?api_key=${LOLAPI}`;
