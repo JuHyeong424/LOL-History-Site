@@ -6,6 +6,7 @@ import useUserInfo from '@/hooks/fetch/useUserInfo.ts';
 import UserGameInfo from '@/pages/user/components/UserGameInfo.tsx';
 import useUserGameInfo from '@/hooks/fetch/useUserGameInfo.ts';
 import useMatchId from '@/hooks/fetch/useMatchId.ts';
+import MatchInfo from '@/pages/user/components/MatchInfo.tsx';
 
 export default function Home() {
   const [userName, setUserName] = useState<string>('');
@@ -35,10 +36,19 @@ export default function Home() {
     isError: matchIdIsError,
   } = useMatchId({ puuid: puuidData?.puuid ?? '', enabled: !!puuidData?.puuid });
 
+  const [visibleMatchId, setVisibleMatchId] = useState(5);
+
+  const handleLoadMore = () => {
+    setVisibleMatchId((prevCount) => prevCount + 5);
+  };
+
+  const visibleMatchIds = (matchId ?? []).slice(0, visibleMatchId);
+
   console.log(puuidData);
   console.log('matchId: ', matchId);
 
   if (puuidIsLoading || matchIdIsLoading) return <span>...Loading</span>;
+  if (puuidIsError || matchIdIsError) return <p>해당 사용자를 찾을 수 없습니다.</p>;
 
   return (
     <>
@@ -49,7 +59,6 @@ export default function Home() {
         userGameIsLoading={userGameIsLoading}
         userGameIsError={userGameIsError}
       />
-      {(puuidIsError || matchIdIsError) && <p>해당 사용자를 찾을 수 없습니다.</p>}
       {puuidData && (
         <>
           <p>puuidData.puuid: {puuidData.puuid}</p>
@@ -58,6 +67,8 @@ export default function Home() {
         </>
       )}
       {matchId && matchId.map((item) => <p key={item}>{item}</p>)}
+      {matchId && visibleMatchIds.map((matchId) => <MatchInfo key={matchId} matchId={matchId} />)}
+      {visibleMatchId < (matchId?.length ?? 0) && <button onClick={handleLoadMore}>더 보기</button>}
     </>
   );
 }
