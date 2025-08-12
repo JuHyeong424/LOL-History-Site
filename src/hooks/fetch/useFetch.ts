@@ -18,6 +18,7 @@ export default function useFetch<T>({ key, value, url, options }: useFetchProps<
   const { data, isLoading, isError, refetch } = useQuery<T>({
     queryKey: [key, value],
     queryFn: fetch,
+    staleTime: Infinity,
     enabled: false,
     ...options,
   });

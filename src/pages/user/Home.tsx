@@ -7,6 +7,8 @@ import UserGameInfo from '@/pages/user/components/UserGameInfo.tsx';
 import useUserGameInfo from '@/hooks/fetch/useUserGameInfo.ts';
 import useMatchId from '@/hooks/fetch/useMatchId.ts';
 import MatchInfo from '@/pages/user/components/MatchInfo.tsx';
+import useChampionId from '@/hooks/fetch/useChampionId.ts';
+import BestChampion from '@/pages/user/components/BestChampion.tsx';
 
 export default function Home() {
   const [userName, setUserName] = useState<string>('');
@@ -15,7 +17,7 @@ export default function Home() {
     data: puuidData,
     isLoading: puuidIsLoading,
     isError: puuidIsError,
-    onClickHandle,
+    refetch: puuidRefetch,
   } = useUserPuuid(userName);
 
   const {
@@ -36,10 +38,24 @@ export default function Home() {
     isError: matchIdIsError,
   } = useMatchId({ puuid: puuidData?.puuid ?? '', enabled: !!puuidData?.puuid });
 
-  const [visibleMatchId, setVisibleMatchId] = useState(5);
+  const {
+    data: championId,
+    isLoading: championIsLoading,
+    isError: championIsError,
+  } = useChampionId({ puuid: puuidData?.puuid ?? '', enabled: !!puuidData?.puuid });
+
+  const [visibleMatchId, setVisibleMatchId] = useState(10);
+
+  const onClickHandle = () => {
+    if (userName.trim() === '') {
+      return;
+    }
+    setVisibleMatchId(10);
+    puuidRefetch();
+  };
 
   const handleLoadMore = () => {
-    setVisibleMatchId((prevCount) => prevCount + 5);
+    setVisibleMatchId((prevCount) => prevCount + 10);
   };
 
   const visibleMatchIds = (matchId ?? []).slice(0, visibleMatchId);
@@ -54,6 +70,11 @@ export default function Home() {
     <>
       <Search setUserName={setUserName} onClickHandle={onClickHandle} />
       <UserInfo userData={userData} userIsLoading={userIsLoading} userIsError={userIsError} />
+      <BestChampion
+        championId={championId}
+        championIsLoading={championIsLoading}
+        championIsError={championIsError}
+      />
       <UserGameInfo
         userGameData={userGameData}
         userGameIsLoading={userGameIsLoading}

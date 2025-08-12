@@ -9,12 +9,5 @@ export default function useUserPuuid(userName: string) {
     url: PUIID_URL(userName),
   });
 
-  const onClickHandle = () => {
-    if (userName.trim() === '') {
-      return;
-    }
-    refetch();
-  };
-
-  return { data, isLoading, isError, onClickHandle };
+  return { data, isLoading, isError, refetch };
 }

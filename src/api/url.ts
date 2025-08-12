@@ -1,4 +1,5 @@
 import { MATCH_ID_COUNT, MATCH_ID_START } from '@/constant/match.ts';
+import { CHAMPION_COUNT, LOL_PATCH_VERSION } from '@/constant/champion.ts';
 
 const LOLAPI = import.meta.env.VITE_RIOT_LOL_API_KEY;
 
@@ -19,3 +20,10 @@ export const MATCH_ID = (puuid: string) =>
 
 export const MATCH_INFO = (matchId: string) =>
   `https://asia.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${LOLAPI}`;
+
+export const CHAMPION_ID = (puuid: string) =>
+  `https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top?count=${CHAMPION_COUNT}&api_key=${LOLAPI}`;
+
+export const CHAMPION_INFO_URL = `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/data/ko_KR/champion.json`;
+
+export const CHAMPION_IMAGE = (image) => `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/img/champion/${image}`;
