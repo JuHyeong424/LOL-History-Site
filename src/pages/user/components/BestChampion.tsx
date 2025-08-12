@@ -1,8 +1,19 @@
 import useChampionInfo from '@/hooks/fetch/useChampionInfo.ts';
 import { CHAMPION_IMAGE } from '@/api/url.ts';
+import type { ChampionData } from '@/types/champion/championId.ts';
 
-export default function BestChampion({ championId, championIsLoading, championIsError }) {
-  const bestChampionId = championId?.map((champion) => champion.championId);
+interface BestChampionProps {
+  championId: ChampionData[] | undefined;
+  championIsLoading: boolean;
+  championIsError: boolean;
+}
+
+export default function BestChampion({
+  championId,
+  championIsLoading,
+  championIsError,
+}: BestChampionProps) {
+  const bestChampionId = championId?.map((champion) => champion.championId) ?? [];
 
   const {
     data: championInfo,

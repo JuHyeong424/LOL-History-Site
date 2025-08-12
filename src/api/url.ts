@@ -26,4 +26,5 @@ export const CHAMPION_ID = (puuid: string) =>
 
 export const CHAMPION_INFO_URL = `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/data/ko_KR/champion.json`;
 
-export const CHAMPION_IMAGE = (image) => `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/img/champion/${image}`;
+export const CHAMPION_IMAGE = (image: string) =>
+  `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/img/champion/${image}`;

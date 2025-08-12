@@ -1,8 +1,13 @@
 import useFetch from '@/hooks/fetch/useFetch.ts';
 import { CHAMPION_INFO_URL } from '@/api/url.ts';
+import type { ChampionResponse } from '@/types/champion/championInfo.ts';
 
-export default function useChampionInfo({ enabled }) {
-  const { data, isLoading, isError } = useFetch({
+interface useChampionInfoProps {
+  enabled: boolean;
+}
+
+export default function useChampionInfo({ enabled }: useChampionInfoProps) {
+  const { data, isLoading, isError } = useFetch<ChampionResponse>({
     key: 'championInfo',
     value: '',
     url: CHAMPION_INFO_URL,
