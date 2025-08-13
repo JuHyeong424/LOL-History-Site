@@ -12,8 +12,8 @@ const Layout = ({ children }: LayoutProps) => (
       max-width: ${theme.viewSize.mobile};
       margin: ${theme.spacing.spacing0} auto;
       background-color: ${theme.colors.backgroundDefault};
-      min-height: ${theme.viewport.vh100};
-      padding: ${theme.spacing.spacing5};
+      min-height: ${theme.viewport.vh90};
+      padding: 0 ${theme.spacing.spacing5};
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     `}
   >

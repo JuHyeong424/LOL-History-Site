@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from '@/styles/Layout.tsx';
 import { ThemeProvider } from '@emotion/react';
 import theme from '@/styles/theme/theme.ts';
+import Header from '@/components/Header.tsx';
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
+      <Header />
       <Layout>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>

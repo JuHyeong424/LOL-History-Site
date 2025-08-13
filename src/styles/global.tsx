@@ -13,6 +13,12 @@ const GlobalStyle = () => (
         background-color: ${theme.colors.backgroundDisabled};
         font-family: 'Pretendard', sans-serif;
       }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
     `}
   />
 );
