@@ -16,6 +16,16 @@ const spacing = {
   spacing14: '56px',
   spacing15: '60px',
   spacing16: '64px',
+  spacing17: '68px',
+  spacing18: '72px',
+  spacing19: '76px',
+  spacing20: '80px',
+  spacing21: '84px',
+  spacing22: '88px',
+  spacing23: '92px',
+  spacing24: '96px',
+  spacing25: '100px',
+  spacing26: '104px',
 };
 
 export default spacing;

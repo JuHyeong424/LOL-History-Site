@@ -11,7 +11,8 @@ export default function UserGameInfo({
   userGameIsLoading,
   userGameIsError,
 }: UserGameInfoProps) {
-  console.log(userGameData);
+
+  console.log('userGameData', userGameData);
 
   if (userGameIsLoading) return <p>로딩 중...</p>;
 

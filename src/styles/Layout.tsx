@@ -10,11 +10,13 @@ const Layout = ({ children }: LayoutProps) => (
   <div
     css={css`
       max-width: ${theme.viewSize.mobile};
-      margin: ${theme.spacing.spacing0} auto;
+      margin: 0 auto;
       background-color: ${theme.colors.backgroundDefault};
       min-height: ${theme.viewport.vh90};
       padding: 0 ${theme.spacing.spacing5};
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      white-space: normal;
+      word-break: break-word;
     `}
   >
     {children}

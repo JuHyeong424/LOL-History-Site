@@ -60,16 +60,34 @@ export default function Home() {
 
   const visibleMatchIds = (matchId ?? []).slice(0, visibleMatchId);
 
-  console.log(puuidData);
+  console.log('puuidData', puuidData);
   console.log('matchId: ', matchId);
 
-  if (puuidIsLoading || matchIdIsLoading) return <span>...Loading</span>;
-  if (puuidIsError || matchIdIsError) return <p>해당 사용자를 찾을 수 없습니다.</p>;
+  if (puuidIsLoading || matchIdIsLoading)
+    return (
+      <>
+        <Search setUserName={setUserName} onClickHandle={onClickHandle} />
+        <span>...Loading</span>
+      </>
+    );
+
+  if (puuidIsError || matchIdIsError)
+    return (
+      <>
+        <Search setUserName={setUserName} onClickHandle={onClickHandle} />
+        <p>해당 사용자를 찾을 수 없습니다.</p>
+      </>
+    );
 
   return (
     <>
       <Search setUserName={setUserName} onClickHandle={onClickHandle} />
-      <UserInfo userData={userData} userIsLoading={userIsLoading} userIsError={userIsError} />
+      <UserInfo
+        puuidData={puuidData}
+        userData={userData}
+        userIsLoading={userIsLoading}
+        userIsError={userIsError}
+      />
       <BestChampion
         championId={championId}
         championIsLoading={championIsLoading}
