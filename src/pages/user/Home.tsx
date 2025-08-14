@@ -101,14 +101,6 @@ export default function Home() {
           championIsError={championIsError}
         />
       </GameChampion>
-      {puuidData && (
-        <>
-          <p>puuidData.puuid: {puuidData.puuid}</p>
-          <p>puuidData.gameName: {puuidData.gameName}</p>
-          <p>puuidData.tagLine: {puuidData.tagLine}</p>
-        </>
-      )}
-      {matchId && matchId.map((item) => <p key={item}>{item}</p>)}
       {matchId && visibleMatchIds.map((matchId) => <MatchInfo key={matchId} matchId={matchId} />)}
       {visibleMatchId < (matchId?.length ?? 0) && <button onClick={handleLoadMore}>더 보기</button>}
     </>

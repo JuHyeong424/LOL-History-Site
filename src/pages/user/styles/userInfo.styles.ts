@@ -27,6 +27,11 @@ export const UserName = styled.span`
   ${theme.typography.title2Bold};
   font-size: 1.5rem;
   margin-bottom: ${theme.spacing.spacing2};
+
+  span {
+    font-size: ${theme.spacing.spacing3};
+    color: ${theme.colors.gray600};
+  }
 `;
 
 export const UserIcon = styled.img`
