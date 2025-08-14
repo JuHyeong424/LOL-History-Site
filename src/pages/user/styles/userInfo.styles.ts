@@ -2,11 +2,12 @@ import styled from '@emotion/styled';
 import theme from '@/styles/theme/theme.ts';
 
 export const UserInfoWrapper = styled.div`
-  border: 1px solid ${theme.colors.gray900};
+  background-color: ${theme.colors.blue300};
   border-radius: ${theme.spacing.spacing1};
   display: flex;
   flex-direction: row;
   padding: ${theme.spacing.spacing4};
+  margin-bottom: ${theme.spacing.spacing4};
 `;
 
 export const UserLeft = styled.div`
