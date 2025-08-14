@@ -28,3 +28,12 @@ export const CHAMPION_INFO_URL = `https://ddragon.leagueoflegends.com/cdn/${LOL_
 
 export const CHAMPION_IMAGE = (image: string) =>
   `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/img/champion/${image}`;
+
+export const CHAMPION_IMAGE_PNG = (image: string) =>
+  `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/img/champion/${image}.png`;
+
+export const ITEM_IMAGE = (image: number) =>
+  `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/img/item/${image}`;
+
+export const ITEM_IMAGE_PNG = (image: number) =>
+  `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/img/item/${image}.png`;

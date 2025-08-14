@@ -14,7 +14,12 @@ interface UserInfoProps {
   userIsError: boolean;
 }
 
-export default function UserInfo({ puuidData, userData, userIsLoading, userIsError }: UserInfoProps) {
+export default function UserInfo({
+  puuidData,
+  userData,
+  userIsLoading,
+  userIsError,
+}: UserInfoProps) {
   console.log('userData', userData);
 
   const date = new Date(Number(userData?.revisionDate)).toLocaleString('ko-KR', {

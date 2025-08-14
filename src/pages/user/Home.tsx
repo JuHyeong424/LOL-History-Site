@@ -101,7 +101,7 @@ export default function Home() {
           championIsError={championIsError}
         />
       </GameChampion>
-      {matchId && visibleMatchIds.map((matchId) => <MatchInfo key={matchId} matchId={matchId} />)}
+      {matchId && visibleMatchIds.map((matchId) => <MatchInfo key={matchId} puuidData={puuidData} matchId={matchId} />)}
       {visibleMatchId < (matchId?.length ?? 0) && <button onClick={handleLoadMore}>더 보기</button>}
     </>
   );
