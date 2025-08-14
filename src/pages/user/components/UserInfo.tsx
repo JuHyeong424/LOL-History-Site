@@ -30,10 +30,10 @@ export default function UserInfo({ puuidData, userData, userIsLoading, userIsErr
         <UserInfoWrapper>
           <UserLeft>
             <UserIcon src={PROFILE_ICON_URL(userData.profileIconId)} alt="소환사 프로필 아이콘" />
-            <UserLevel>Lv.{userData.summonerLevel}</UserLevel>
           </UserLeft>
           <UserRight>
             <UserName>{puuidData.gameName}</UserName>
+            <UserLevel>Lv.{userData.summonerLevel}</UserLevel>
             <LatestRevision>마지막 갱신일: {date}</LatestRevision>
           </UserRight>
         </UserInfoWrapper>

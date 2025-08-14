@@ -1,6 +1,12 @@
 import useChampionInfo from '@/hooks/fetch/useChampionInfo.ts';
 import { CHAMPION_IMAGE } from '@/api/url.ts';
 import type { ChampionData } from '@/types/champion/championId.ts';
+import {
+  BestChampionImage,
+  BestChampionImageWrapper,
+  BestChampionTitle,
+  BestChampionWrapper,
+} from '@/pages/user/styles/bestChampion.styles.ts';
 
 interface BestChampionProps {
   championId: ChampionData[] | undefined;
@@ -32,13 +38,17 @@ export default function BestChampion({
 
   return (
     <>
-      {bestChampionInfo &&
-        bestChampionInfo.map((item) => (
-          <div key={item.key}>
-            <p>{item.name}</p>
-            <img src={CHAMPION_IMAGE(item.image.full)} alt={item.image.group} />
-          </div>
-        ))}
+      {bestChampionInfo.length > 0 && (
+        <BestChampionWrapper>
+          <BestChampionTitle>자주 사용하는 챔피언</BestChampionTitle>
+          {bestChampionInfo &&
+            bestChampionInfo.map((item) => (
+              <BestChampionImageWrapper key={item.key}>
+                <BestChampionImage src={CHAMPION_IMAGE(item.image.full)} alt={item.image.group} />
+              </BestChampionImageWrapper>
+            ))}
+        </BestChampionWrapper>
+      )}
     </>
   );
 }

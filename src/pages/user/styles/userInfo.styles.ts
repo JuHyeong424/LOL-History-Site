@@ -6,7 +6,7 @@ export const UserInfoWrapper = styled.div`
   border-radius: ${theme.spacing.spacing1};
   display: flex;
   flex-direction: row;
-  padding: ${theme.spacing.spacing5};
+  padding: ${theme.spacing.spacing4};
 `;
 
 export const UserLeft = styled.div`
@@ -31,7 +31,6 @@ export const UserName = styled.span`
 export const UserIcon = styled.img`
   width: ${theme.spacing.spacing26};
   border-radius: 50%;
-  margin-bottom: ${theme.spacing.spacing2};
 `;
 
 export const LatestRevision = styled.span`
@@ -40,4 +39,5 @@ export const LatestRevision = styled.span`
 
 export const UserLevel = styled.span`
   font-size: ${theme.spacing.spacing4};
+  margin-bottom: ${theme.spacing.spacing2};
 `;

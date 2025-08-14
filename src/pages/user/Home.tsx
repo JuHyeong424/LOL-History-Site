@@ -9,6 +9,7 @@ import useMatchId from '@/hooks/fetch/useMatchId.ts';
 import MatchInfo from '@/pages/user/components/MatchInfo.tsx';
 import useChampionId from '@/hooks/fetch/useChampionId.ts';
 import BestChampion from '@/pages/user/components/BestChampion.tsx';
+import { GameChampion } from '@/pages/user/styles/home.styles.ts';
 
 export default function Home() {
   const [userName, setUserName] = useState<string>('');
@@ -88,16 +89,18 @@ export default function Home() {
         userIsLoading={userIsLoading}
         userIsError={userIsError}
       />
-      <BestChampion
-        championId={championId}
-        championIsLoading={championIsLoading}
-        championIsError={championIsError}
-      />
-      <UserGameInfo
-        userGameData={userGameData}
-        userGameIsLoading={userGameIsLoading}
-        userGameIsError={userGameIsError}
-      />
+      <GameChampion>
+        <UserGameInfo
+          userGameData={userGameData}
+          userGameIsLoading={userGameIsLoading}
+          userGameIsError={userGameIsError}
+        />
+        <BestChampion
+          championId={championId}
+          championIsLoading={championIsLoading}
+          championIsError={championIsError}
+        />
+      </GameChampion>
       {puuidData && (
         <>
           <p>puuidData.puuid: {puuidData.puuid}</p>
