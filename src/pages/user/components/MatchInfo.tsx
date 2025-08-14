@@ -1,6 +1,6 @@
 import useMatchInfo from '@/hooks/fetch/useMatchInfo.ts';
 import useMatchDetail from '@/hooks/useMatchDetail.ts';
-import { CHAMPION_IMAGE_PNG, ITEM_IMAGE_PNG } from '@/api/url.ts';
+import { CHAMPION_IMAGE_PNG, ITEM_IMAGE_PNG, SPELL_IMAGE } from '@/api/url.ts';
 
 interface matchInfoProps {
   puuidData?: string;
@@ -30,7 +30,14 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
     items,
     killParticipation,
     gameType,
+    goldInK,
+    spell1Image,
+    spell2Image,
+    keystoneRune,
+    secondaryRune,
   } = useMatchDetail({ matchInfo, puuidData });
+
+  console.log(spell1Image);
 
   return (
     // me.win에 따라 부모 div에 클래스명을 주어 CSS로 배경색 등을 제어할 수 있습니다.
@@ -57,11 +64,20 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
           width="48"
           height="48"
         />
+        <img
+          src={SPELL_IMAGE(spell1Image)}
+          alt={spell1Image}
+        />
+        <img
+          src={SPELL_IMAGE(spell2Image)}
+          alt={spell2Image}
+        />
         {/* TODO: summonerId, perkId를 이미지로 변환하는 로직 필요 */}
         <div>
-          <p>{me.kills} / <span style={{color: 'red'}}>{me.deaths}</span> / {me.assists}</p>
+          <p>{me.kills} / <span style={{ color: 'red' }}>{me.deaths}</span> / {me.assists}</p>
           <p>KDA: {kda}</p>
           <p>킬관여: {killParticipation}%</p>
+          <p>골드: {goldInK}K</p>
         </div>
       </div>
 
