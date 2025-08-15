@@ -1,6 +1,6 @@
 import useMatchInfo from '@/hooks/fetch/useMatchInfo.ts';
 import useMatchDetail from '@/hooks/useMatchDetail.ts';
-import { CHAMPION_IMAGE_PNG, ITEM_IMAGE_PNG, SPELL_IMAGE } from '@/api/url.ts';
+import { CHAMPION_IMAGE_PNG, ITEM_IMAGE_PNG, RUNES_IMAGE, SPELL_IMAGE } from '@/api/url.ts';
 
 interface matchInfoProps {
   puuidData?: string;
@@ -14,9 +14,12 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
     isError: matchInfoIsError,
   } = useMatchInfo({ matchId: matchId ?? '', enabled: !!matchId });
 
+  const matchDetail = useMatchDetail({ matchInfo, puuidData });
+
   if (matchInfoIsLoading) return <p>매치 정보 로딩중...</p>;
   if (matchInfoIsError) return <p>매치 정보 로드 중 에러 발생</p>;
   if (!matchInfo) return <p>매치 데이터를 찾을 수 없습니다.</p>;
+  if (!matchDetail) return null;
 
   const {
     me,
@@ -33,11 +36,11 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
     goldInK,
     spell1Image,
     spell2Image,
-    keystoneRune,
-    secondaryRune,
-  } = useMatchDetail({ matchInfo, puuidData });
+    keystoneRuneImage,
+    secondaryRuneImage,
+  } = matchDetail;
 
-  console.log(spell1Image);
+  if (!me) return null;
 
   return (
     // me.win에 따라 부모 div에 클래스명을 주어 CSS로 배경색 등을 제어할 수 있습니다.
@@ -72,6 +75,18 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
           src={SPELL_IMAGE(spell2Image)}
           alt={spell2Image}
         />
+        {keystoneRuneImage && (
+          <img
+            src={RUNES_IMAGE(keystoneRuneImage)}
+            alt={keystoneRuneImage}
+          />
+        )}
+        {secondaryRuneImage && (
+          <img
+            src={RUNES_IMAGE(secondaryRuneImage)}
+            alt={secondaryRuneImage}
+          />
+        )}
         {/* TODO: summonerId, perkId를 이미지로 변환하는 로직 필요 */}
         <div>
           <p>{me.kills} / <span style={{ color: 'red' }}>{me.deaths}</span> / {me.assists}</p>
@@ -84,7 +99,7 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
       {/* 아이템 및 기타 정보 */}
       <div className="item-stats">
         <div className="items">
-          {items.map((itemId, index) => (
+        {items.map((itemId, index) => (
             <img
               key={index}
               src={ITEM_IMAGE_PNG(itemId)}

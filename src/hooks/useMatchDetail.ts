@@ -3,11 +3,18 @@ import { ko } from 'date-fns/locale';
 import { formatGameDuration } from '@/hooks/fetch/useTimeModeChange.ts';
 import { QUEUE_TYPE_MAP } from '@/constant/map.ts';
 import useSpellInfo from '@/hooks/fetch/useSpellInfo.ts';
+import useRuneInfo from '@/hooks/fetch/useRuneInfo.ts';
 
 export default function useMatchDetail({ matchInfo, puuidData }) {
+  const { spellDataIsLoading, findSpellImage } = useSpellInfo();
+  const { runeDataIsLoading, findRuneImage, findSecondaryRuneImage } = useRuneInfo();
+
+  if (!matchInfo || !puuidData || spellDataIsLoading || runeDataIsLoading)
+    return { isLoading: true };
+
   // 검색 유저 정보
   const me = matchInfo.info.participants.find((p) => p.puuid === puuidData.puuid);
-  console.log("me", me);
+  if (!me) return undefined;
 
   const totalGold = me.goldEarned;
   console.log(totalGold);
@@ -15,11 +22,15 @@ export default function useMatchDetail({ matchInfo, puuidData }) {
   const goldInK = (totalGold / 1000).toFixed(1);
 
   // 아군 팀
-  const allyTeam = matchInfo.info.participants.filter(p => p.teamId === me.teamId);
-  console.log("allyTeam", allyTeam);
+  const allyTeam = matchInfo.info.participants.filter(
+    (p) => p.teamId === me.teamId
+  );
+  console.log('allyTeam', allyTeam);
 
   // 적 팀
-  const enemyTeam = matchInfo.info.participants.filter(p => p.teamId !== me.teamId);
+  const enemyTeam = matchInfo.info.participants.filter(
+    (p) => p.teamId !== me.teamId
+  );
   console.log('enenmyTeam', enemyTeam);
 
   // 승패
@@ -27,7 +38,7 @@ export default function useMatchDetail({ matchInfo, puuidData }) {
   console.log(gameResult);
 
   // 게임 종류
-  const gameType = QUEUE_TYPE_MAP[matchInfo.info.queueId] || '기타';
+  const gameType = QUEUE_TYPE_MAP[matchInfo.info.queueId as keyof typeof QUEUE_TYPE_MAP] || '기타';
   console.log(gameType);
 
   // 게임 시간
@@ -42,15 +53,17 @@ export default function useMatchDetail({ matchInfo, puuidData }) {
   console.log(timeAgo);
 
   // kda
-  const kda = me.challenges.kda.toFixed(2);
+  const kda = me.challenges.kda?.toFixed(2);
   console.log(kda);
 
   // 킬 관여율
-  const killParticipation = Math.round(me.challenges.killParticipation * 100);
+  const killParticipation = me.challenges?.killParticipation
+    ? Math.round(me.challenges.killParticipation * 100)
+    : 0;
   console.log(killParticipation);
 
   // cs
-  const totalCS = me.totalMinionsKilled + me.neutralMinionsKilled;
+  const totalCS = (me.totalMinionsKilled ?? 0) + (me.neutralMinionsKilled ?? 0);
   console.log(totalCS);
 
   // item slot
@@ -58,8 +71,6 @@ export default function useMatchDetail({ matchInfo, puuidData }) {
     (id) => id !== 0
   );
   console.log(items);
-
-  const { findSpellImage } = useSpellInfo();
 
   const spell1 = me.summoner1Id;
   const spell2 = me.summoner2Id;
@@ -69,6 +80,9 @@ export default function useMatchDetail({ matchInfo, puuidData }) {
 
   const keystoneRune = me.perks.styles[0].selections[0].perk;
   const secondaryRune = me.perks.styles[1].style;
+
+  const keystoneRuneImage = findRuneImage(keystoneRune);
+  const secondaryRuneImage = findSecondaryRuneImage(secondaryRune);
 
   return {
     me,
@@ -85,7 +99,7 @@ export default function useMatchDetail({ matchInfo, puuidData }) {
     goldInK,
     spell1Image,
     spell2Image,
-    keystoneRune,
-    secondaryRune,
+    keystoneRuneImage,
+    secondaryRuneImage,
   };
 }

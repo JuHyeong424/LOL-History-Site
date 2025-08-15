@@ -1,8 +1,9 @@
 import useFetch from '@/hooks/fetch/useFetch.ts';
 import { SPELL_INFO } from '@/api/url.ts';
+import type { SummonerJsonResponse } from '@/types/spell.ts';
 
 export default function useSpellInfo() {
-  const { data, isLoading, isError } = useFetch({
+  const { data, isLoading, isError } = useFetch<SummonerJsonResponse>({
     key: 'spellInfo',
     value: '',
     url: SPELL_INFO,
@@ -13,10 +14,14 @@ export default function useSpellInfo() {
 
   const findSpellImage = (id: number) => {
     if (!data || !data.data) return undefined;
-    return Object.values(data.data).find(
-      (spell) => Number(spell.key) === id
-    ).image.full;
+    const spell = Object.values(data.data).find((spell) => Number(spell.key) === id);
+    return spell?.image.full;
   };
 
-  return { data, isLoading, isError, findSpellImage };
+  return {
+    spellData: data,
+    spellDataIsLoading: isLoading,
+    spellDataIsError: isError,
+    findSpellImage,
+  };
 }

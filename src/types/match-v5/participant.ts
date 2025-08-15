@@ -35,4 +35,5 @@ export interface ParticipantDto {
   quadraKills: number;
   perks: PerksDto;
   challenges: ChallengesDto;
+  detectorWardsPlaced: number;
 }
