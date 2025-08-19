@@ -4,16 +4,23 @@ import { formatGameDuration } from '@/hooks/fetch/useTimeModeChange.ts';
 import { QUEUE_TYPE_MAP } from '@/constant/map.ts';
 import useSpellInfo from '@/hooks/fetch/useSpellInfo.ts';
 import useRuneInfo from '@/hooks/fetch/useRuneInfo.ts';
+import type { MatchDto } from '@/types/match-v5';
+import type { ParticipantDto } from '@/types/match-v5/participant.ts';
+import type { PuuidData } from '@/types/user.ts';
 
-export default function useMatchDetail({ matchInfo, puuidData }) {
+interface useMatchDetailProps {
+  matchInfo?: MatchDto;
+  puuidData?: PuuidData;
+}
+
+export default function useMatchDetail({ matchInfo, puuidData }: useMatchDetailProps) {
   const { spellDataIsLoading, findSpellImage } = useSpellInfo();
   const { runeDataIsLoading, findRuneImage, findSecondaryRuneImage } = useRuneInfo();
 
-  if (!matchInfo || !puuidData || spellDataIsLoading || runeDataIsLoading)
-    return { isLoading: true };
+  if (!matchInfo || !puuidData || spellDataIsLoading || runeDataIsLoading) return undefined;
 
   // 검색 유저 정보
-  const me = matchInfo.info.participants.find((p) => p.puuid === puuidData.puuid);
+  const me = matchInfo.info.participants.find((p: ParticipantDto) => p.puuid === puuidData.puuid);
   if (!me) return undefined;
 
   const totalGold = me.goldEarned;
@@ -23,13 +30,13 @@ export default function useMatchDetail({ matchInfo, puuidData }) {
 
   // 아군 팀
   const allyTeam = matchInfo.info.participants.filter(
-    (p) => p.teamId === me.teamId
+    (p: ParticipantDto) => p.teamId === me.teamId
   );
   console.log('allyTeam', allyTeam);
 
   // 적 팀
   const enemyTeam = matchInfo.info.participants.filter(
-    (p) => p.teamId !== me.teamId
+    (p: ParticipantDto) => p.teamId !== me.teamId
   );
   console.log('enenmyTeam', enemyTeam);
 

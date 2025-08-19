@@ -42,4 +42,5 @@ export const SPELL_INFO = `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_V
 
 export const RUNES_INFO = `https://ddragon.leagueoflegends.com/cdn/${LOL_PATCH_VERSION}/data/ko_KR/runesReforged.json`;
 
-export const RUNES_IMAGE = (image: string) => `https://ddragon.leagueoflegends.com/cdn/img/${image}`;
+export const RUNES_IMAGE = (image: string) =>
+  `https://ddragon.leagueoflegends.com/cdn/img/${image}`;

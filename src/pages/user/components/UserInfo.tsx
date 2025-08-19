@@ -1,15 +1,18 @@
-import type { UserData } from '@/types/user.ts';
+import type { PuuidData, UserData } from '@/types/user.ts';
 import { PROFILE_ICON_URL } from '@/api/url.ts';
 import {
   LatestRevision,
   UserIcon,
-  UserInfoWrapper, UserLeft,
+  UserInfoWrapper,
+  UserLeft,
   UserLevel,
-  UserName, UserRight,
+  UserName,
+  UserRight,
 } from '@/pages/user/styles/userInfo.styles.ts';
 
 interface UserInfoProps {
-  userData: UserData | undefined;
+  puuidData?: PuuidData;
+  userData?: UserData | undefined;
   userIsLoading: boolean;
   userIsError: boolean;
 }
@@ -38,7 +41,11 @@ export default function UserInfo({
           </UserLeft>
           <UserRight>
             <UserName>
-              {puuidData.gameName} <span>#{puuidData.tagLine}</span>
+              {puuidData && (
+                <>
+                  {puuidData.gameName} <span>#{puuidData.tagLine}</span>
+                </>
+              )}
             </UserName>
             <UserLevel>Lv.{userData.summonerLevel}</UserLevel>
             <LatestRevision>마지막 갱신일: {date}</LatestRevision>

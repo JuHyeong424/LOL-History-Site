@@ -6,7 +6,6 @@ export const SearchWrapper = styled.div`
   justify-content: center;
   text-align: center;
   padding: ${theme.spacing.spacing5};
-
 `;
 
 export const SearchNameInput = styled.input`

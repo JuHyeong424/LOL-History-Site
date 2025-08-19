@@ -36,4 +36,5 @@ export interface ParticipantDto {
   perks: PerksDto;
   challenges: ChallengesDto;
   detectorWardsPlaced: number;
+  teamId: number;
 }

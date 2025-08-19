@@ -1,9 +1,10 @@
 import useMatchInfo from '@/hooks/fetch/useMatchInfo.ts';
 import useMatchDetail from '@/hooks/useMatchDetail.ts';
 import { CHAMPION_IMAGE_PNG, ITEM_IMAGE_PNG, RUNES_IMAGE, SPELL_IMAGE } from '@/api/url.ts';
+import type { PuuidData } from '@/types/user.ts';
 
 interface matchInfoProps {
-  puuidData?: string;
+  puuidData?: PuuidData;
   matchId?: string;
 }
 
@@ -67,29 +68,17 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
           width="48"
           height="48"
         />
-        <img
-          src={SPELL_IMAGE(spell1Image)}
-          alt={spell1Image}
-        />
-        <img
-          src={SPELL_IMAGE(spell2Image)}
-          alt={spell2Image}
-        />
-        {keystoneRuneImage && (
-          <img
-            src={RUNES_IMAGE(keystoneRuneImage)}
-            alt={keystoneRuneImage}
-          />
-        )}
+        {spell1Image && <img src={SPELL_IMAGE(spell1Image)} alt={spell1Image} />}
+        {spell2Image && <img src={SPELL_IMAGE(spell2Image)} alt={spell2Image} />}
+        {keystoneRuneImage && <img src={RUNES_IMAGE(keystoneRuneImage)} alt={keystoneRuneImage} />}
         {secondaryRuneImage && (
-          <img
-            src={RUNES_IMAGE(secondaryRuneImage)}
-            alt={secondaryRuneImage}
-          />
+          <img src={RUNES_IMAGE(secondaryRuneImage)} alt={secondaryRuneImage} />
         )}
         {/* TODO: summonerId, perkId를 이미지로 변환하는 로직 필요 */}
         <div>
-          <p>{me.kills} / <span style={{ color: 'red' }}>{me.deaths}</span> / {me.assists}</p>
+          <p>
+            {me.kills} / <span style={{ color: 'red' }}>{me.deaths}</span> / {me.assists}
+          </p>
           <p>KDA: {kda}</p>
           <p>킬관여: {killParticipation}%</p>
           <p>골드: {goldInK}K</p>
@@ -99,7 +88,7 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
       {/* 아이템 및 기타 정보 */}
       <div className="item-stats">
         <div className="items">
-        {items.map((itemId, index) => (
+          {items.map((itemId, index) => (
             <img
               key={index}
               src={ITEM_IMAGE_PNG(itemId)}
@@ -118,17 +107,27 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
       {/* 참가자 목록 */}
       <div className="participant-lists">
         <div className="ally-team">
-          {allyTeam.map(p => (
+          {allyTeam.map((p) => (
             <div key={p.puuid} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <img src={CHAMPION_IMAGE_PNG(p.championName)} width="16" height="16" />
+              <img
+                src={CHAMPION_IMAGE_PNG(p.championName)}
+                width="16"
+                height="16"
+                alt={CHAMPION_IMAGE_PNG(p.championName)}
+              />
               <span>{p.riotIdGameName}</span>
             </div>
           ))}
         </div>
         <div className="enemy-team">
-          {enemyTeam.map(p => (
+          {enemyTeam.map((p) => (
             <div key={p.puuid} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <img src={CHAMPION_IMAGE_PNG(p.championName)} width="16" height="16" />
+              <img
+                src={CHAMPION_IMAGE_PNG(p.championName)}
+                width="16"
+                height="16"
+                alt={CHAMPION_IMAGE_PNG(p.championName)}
+              />
               <span>{p.riotIdGameName}</span>
             </div>
           ))}
