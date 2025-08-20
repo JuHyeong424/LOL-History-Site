@@ -18,6 +18,8 @@ export default function InfiniteScrollObserver({
   useEffect(() => {
     if (!enabled || !targetRef.current) return;
 
+    const currentTarget = targetRef.current;
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -27,11 +29,11 @@ export default function InfiniteScrollObserver({
       { rootMargin, threshold }
     );
 
-    observer.observe(targetRef.current);
+    observer.observe(currentTarget);
 
     return () => {
-      if (targetRef.current) {
-        observer.unobserve(targetRef.current);
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
       }
     };
   }, [enabled, onIntersect, rootMargin, threshold]);

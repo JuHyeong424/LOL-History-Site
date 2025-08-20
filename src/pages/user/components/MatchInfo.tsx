@@ -3,7 +3,8 @@ import useMatchDetail from '@/hooks/useMatchDetail.ts';
 import { CHAMPION_IMAGE_PNG, ITEM_IMAGE_PNG, RUNES_IMAGE, SPELL_IMAGE } from '@/api/url.ts';
 import type { PuuidData } from '@/types/user.ts';
 import {
-  AllyTeam, ChampionIcon,
+  AllyTeam,
+  ChampionIcon,
   ChampionImage,
   EnemyTeam,
   GameStatus,
