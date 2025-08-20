@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUserPuuid from '@/hooks/fetch/useUserPuuid.ts';
 import Search from '@/pages/user/components/Search.tsx';
 import UserInfo from '@/pages/user/components/UserInfo.tsx';
@@ -10,6 +10,7 @@ import MatchInfo from '@/pages/user/components/MatchInfo.tsx';
 import useChampionId from '@/hooks/fetch/useChampionId.ts';
 import BestChampion from '@/pages/user/components/BestChampion.tsx';
 import { GameChampion } from '@/pages/user/styles/home.styles.ts';
+import InfiniteScrollObserver from '@/components/InfiniteScrollObserver.tsx';
 
 export default function Home() {
   const [userName, setUserName] = useState<string>('');
@@ -45,21 +46,29 @@ export default function Home() {
     isError: championIsError,
   } = useChampionId({ puuid: puuidData?.puuid ?? '', enabled: !!puuidData?.puuid });
 
-  const [visibleMatchId, setVisibleMatchId] = useState(10);
+  const [visibleMatchId, setVisibleMatchId] = useState(0);
+  const [observerEnabled, setObserverEnabled] = useState(false);
 
   const onClickHandle = () => {
     if (userName.trim() === '') {
       return;
     }
-    setVisibleMatchId(10);
+    setVisibleMatchId(5);
+    setObserverEnabled(false);
     puuidRefetch();
   };
 
-  const handleLoadMore = () => {
-    setVisibleMatchId((prevCount) => prevCount + 10);
-  };
-
   const visibleMatchIds = (matchId ?? []).slice(0, visibleMatchId);
+
+  useEffect(() => {
+    if (!matchIdIsLoading && visibleMatchIds.length > 0) {
+      const timer = setTimeout(() => {
+        setObserverEnabled(true);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [matchIdIsLoading, visibleMatchIds.length]);
 
   console.log('puuidData', puuidData);
   console.log('matchId: ', matchId);
@@ -105,7 +114,11 @@ export default function Home() {
         visibleMatchIds.map((matchId) => (
           <MatchInfo key={matchId} puuidData={puuidData} matchId={matchId} />
         ))}
-      {visibleMatchId < (matchId?.length ?? 0) && <button onClick={handleLoadMore}>더 보기</button>}
+      <InfiniteScrollObserver
+        onIntersect={() => setVisibleMatchId((prevCount) => prevCount + 5)}
+        enabled={observerEnabled && visibleMatchId < (matchId?.length ?? 0)}
+        rootMargin="50px"
+      />
     </>
   );
 }
