@@ -115,6 +115,9 @@ export const ParticipantLists = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: ${theme.spacing.spacing3};
+  border: 1.25px solid ${theme.colors.gray800};
+  border-radius: ${theme.spacing.spacing2};
+  padding: ${theme.spacing.spacing3};
 `;
 
 export const VS = styled.p`
@@ -124,17 +127,23 @@ export const VS = styled.p`
 
 export const AllyTeam = styled.div`
   flex: 1;
-  padding: ${theme.spacing.spacing3};
+`;
+
+export const ChampionIcon = styled.img`
+  width: ${theme.spacing.spacing4};
+  height: ${theme.spacing.spacing4};
 `;
 
 export const EnemyTeam = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: ${theme.spacing.spacing3};
   align-items: flex-end;
 `;
 
 export const TeamList = styled.div`
-  margin-bottom: 5px;
+  display: flex;
+  alignitems: 'center';
+  gap: ${theme.spacing.spacing1};
+  margin-bottom: ${theme.spacing.spacing1};
 `;

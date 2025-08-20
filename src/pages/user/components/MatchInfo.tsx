@@ -3,7 +3,7 @@ import useMatchDetail from '@/hooks/useMatchDetail.ts';
 import { CHAMPION_IMAGE_PNG, ITEM_IMAGE_PNG, RUNES_IMAGE, SPELL_IMAGE } from '@/api/url.ts';
 import type { PuuidData } from '@/types/user.ts';
 import {
-  AllyTeam,
+  AllyTeam, ChampionIcon,
   ChampionImage,
   EnemyTeam,
   GameStatus,
@@ -127,14 +127,9 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
           <ParticipantLists>
             <AllyTeam>
               {allyTeam.map((p) => (
-                <TeamList
-                  key={p.puuid}
-                  style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
-                >
-                  <img
+                <TeamList key={p.puuid}>
+                  <ChampionIcon
                     src={CHAMPION_IMAGE_PNG(p.championName)}
-                    width="16"
-                    height="16"
                     alt={CHAMPION_IMAGE_PNG(p.championName)}
                   />
                   <span>{p.riotIdGameName}</span>
@@ -144,15 +139,10 @@ export default function MatchInfo({ puuidData, matchId }: matchInfoProps) {
             <p className="VS">VS</p>
             <EnemyTeam>
               {enemyTeam.map((p) => (
-                <TeamList
-                  key={p.puuid}
-                  style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
-                >
+                <TeamList key={p.puuid}>
                   <span>{p.riotIdGameName}</span>
-                  <img
+                  <ChampionIcon
                     src={CHAMPION_IMAGE_PNG(p.championName)}
-                    width="16"
-                    height="16"
                     alt={CHAMPION_IMAGE_PNG(p.championName)}
                   />
                 </TeamList>
